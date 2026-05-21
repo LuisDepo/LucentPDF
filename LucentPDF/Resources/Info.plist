@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>es</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIconName</key>
+	<string>AppIcon</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>LucentPDF</string>
+	<key>CFBundleDisplayName</key>
+	<string>LucentPDF</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.productivity</string>
+	<key>NSHighResolutionCapable</key>
+	<true/>
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>© 2026 LucentPDF. Todos los derechos reservados.</string>
+	<key>NSMainNibFile</key>
+	<string></string>
+	<!-- ===================== Sparkle (auto-actualización) ===================== -->
+	<!-- PLACEHOLDER: sustituir por la URL real del appcast antes de publicar.
+	     Ver docs/DISTRIBUCION.md. Para repo público en GitHub Pages:
+	     https://<usuario>.github.io/lucentpdf/appcast.xml -->
+	<key>SUFeedURL</key>
+	<string>https://luisdepo.github.io/lucentpdf/appcast.xml</string>
+	<!-- PLACEHOLDER: clave pública EdDSA generada con la herramienta de Sparkle
+	     (./bin/generate_keys). Mientras sea placeholder, la app NO instalará
+	     actualizaciones (solo comprobará). Ver docs/DISTRIBUCION.md. -->
+	<key>SUPublicEDKey</key>
+	<string>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</string>
+	<!-- Sin comprobaciones automáticas: solo cuando el usuario pulsa el botón. -->
+	<key>SUEnableAutomaticChecks</key>
+	<false/>
+	<key>SUAutomaticallyUpdate</key>
+	<false/>
+	<key>SUScheduledCheckInterval</key>
+	<integer>86400</integer>
+</dict>
+</plist>

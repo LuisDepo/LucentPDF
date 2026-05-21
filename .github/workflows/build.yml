@@ -1,0 +1,104 @@
+name: Build LucentPDF
+
+# Compila la app en los Mac de GitHub y produce el instalador .dmg.
+# - Ejecución manual: pestaña "Actions" -> "Build LucentPDF" -> "Run workflow".
+# - Automática: al hacer push a main o al publicar una etiqueta vX.Y.Z
+#   (esto último, además, crea una Release con el .dmg adjunto).
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Compilar app y crear DMG
+    runs-on: macos-14
+    steps:
+      - name: Descargar código
+        uses: actions/checkout@v4
+
+      - name: Instalar herramientas de build
+        run: brew install xcodegen create-dmg dylibbundler tesseract tesseract-lang
+
+      - name: Generar proyecto Xcode
+        run: xcodegen generate
+
+      - name: Compilar (Release, universal arm64 + x86_64)
+        run: |
+          xcodebuild \
+            -project LucentPDF.xcodeproj \
+            -scheme LucentPDF \
+            -configuration Release \
+            -derivedDataPath build/DerivedData \
+            -destination 'generic/platform=macOS' \
+            ARCHS="arm64 x86_64" \
+            ONLY_ACTIVE_ARCH=NO \
+            CODE_SIGN_IDENTITY="-" \
+            CODE_SIGN_STYLE=Manual \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=YES \
+            clean build
+
+      - name: Localizar la app compilada
+        id: locate
+        run: |
+          APP=$(find build/DerivedData/Build/Products/Release \
+            -maxdepth 1 -name 'LucentPDF.app' | head -1)
+          if [ -z "$APP" ]; then
+            echo "ERROR: no se encontró LucentPDF.app"; exit 1
+          fi
+          echo "app_path=$APP" >> "$GITHUB_OUTPUT"
+
+      - name: Empaquetar Tesseract (motor de respaldo)
+        # Si falla, la app seguirá funcionando solo con Apple Vision.
+        continue-on-error: true
+        run: ./scripts/bundle_tesseract.sh "${{ steps.locate.outputs.app_path }}"
+
+      - name: Re-firmar la app (ad-hoc)
+        run: codesign --force --deep --sign - "${{ steps.locate.outputs.app_path }}"
+
+      - name: Crear instalador DMG
+        run: ./scripts/build_dmg.sh "${{ steps.locate.outputs.app_path }}" build/LucentPDF.dmg
+
+      - name: Subir DMG como artefacto descargable
+        uses: actions/upload-artifact@v4
+        with:
+          name: LucentPDF-dmg
+          path: build/LucentPDF.dmg
+          if-no-files-found: error
+
+      - name: Publicar Release (solo al etiquetar vX.Y.Z)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/LucentPDF.dmg
+          generate_release_notes: true
+
+  test:
+    name: Pruebas automáticas
+    runs-on: macos-14
+    steps:
+      - name: Descargar código
+        uses: actions/checkout@v4
+
+      - name: Instalar XcodeGen
+        run: brew install xcodegen
+
+      - name: Generar proyecto Xcode
+        run: xcodegen generate
+
+      - name: Ejecutar pruebas
+        run: |
+          xcodebuild \
+            -project LucentPDF.xcodeproj \
+            -scheme LucentPDF \
+            -destination 'platform=macOS' \
+            CODE_SIGN_IDENTITY="-" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            test

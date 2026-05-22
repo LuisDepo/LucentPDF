@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6E63FF"/>
+      <stop offset="0.55" stop-color="#4C7BF0"/>
+      <stop offset="1" stop-color="#21BDEB"/>
+    </linearGradient>
+    <linearGradient id="page" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#ECEFFF"/>
+    </linearGradient>
+    <radialGradient id="sheen" cx="0.32" cy="0.26" r="0.85">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.30"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="pageShadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="22" stdDeviation="30" flood-color="#0A1247" flood-opacity="0.32"/>
+    </filter>
+  </defs>
+
+  <rect x="96" y="96" width="832" height="832" rx="186" fill="url(#bg)"/>
+  <rect x="96" y="96" width="832" height="832" rx="186" fill="url(#sheen)"/>
+
+  <g filter="url(#pageShadow)">
+    <path d="M 366,300 H 592 L 688,396 V 718 Q 688,748 658,748 H 366 Q 336,748 336,718 V 330 Q 336,300 366,300 Z" fill="url(#page)"/>
+    <path d="M 592,300 L 688,396 L 592,396 Z" fill="#C2C8F2"/>
+    <path d="M 592,300 L 688,396 L 592,396 Z" fill="#0A1247" fill-opacity="0.06"/>
+  </g>
+
+  <g fill="#AEB4E8">
+    <rect x="386" y="468" width="232" height="24" rx="12"/>
+    <rect x="386" y="524" width="256" height="24" rx="12"/>
+    <rect x="386" y="580" width="190" height="24" rx="12"/>
+  </g>
+
+  <circle cx="706" cy="312" r="150" fill="url(#glow)"/>
+  <path d="M 706,208 Q 720.56,297.44 810,312 Q 720.56,326.56 706,416 Q 691.44,326.56 602,312 Q 691.44,297.44 706,208 Z" fill="#FFFFFF"/>
+  <path d="M 386,650 Q 391.6,684.4 426,690 Q 391.6,695.6 386,730 Q 380.4,695.6 346,690 Q 380.4,684.4 386,650 Z" fill="#FFFFFF" fill-opacity="0.92"/>
+</svg>

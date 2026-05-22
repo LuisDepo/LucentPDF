@@ -1,0 +1,30 @@
+# Proyecto Xcode generado por XcodeGen (no se versiona)
+*.xcodeproj/
+*.xcworkspace/
+
+# Artefactos de build
+build/
+DerivedData/
+*.dmg
+*.app
+
+# Swift Package Manager
+.swiftpm/
+.build/
+Package.resolved
+
+# macOS / Xcode
+.DS_Store
+xcuserdata/
+*.xcuserstate
+
+# Python (scripts de branding)
+__pycache__/
+*.pyc
+
+# Secretos de firma / notarización (NUNCA versionar)
+*.p12
+*.cer
+*.provisionprofile
+sparkle_private_key*
+AuthKey_*.p8

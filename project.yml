@@ -10,7 +10,7 @@ options:
     macOS: "13.0"
   createIntermediateGroups: true
   groupSortPosition: top
-  xcodeVersion: "15.0"
+  xcodeVersion: "16.0"
 
 settings:
   base:
